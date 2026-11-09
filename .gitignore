@@ -1,0 +1,10 @@
+# Build files
+/target
+
+# Dev scripts, etc.
+/tmp
+
+# Output files
+/web/*
+!/web/assets
+!/web/index.html
