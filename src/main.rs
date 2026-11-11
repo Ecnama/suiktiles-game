@@ -7,6 +7,7 @@ use std::{
 #[cfg(not(target_arch = "wasm32"))]
 use macroquad::file::set_pc_assets_folder;
 use macroquad::{
+    audio::{load_sound, play_sound_once},
     color::{BLACK, Color, WHITE},
     input::{KeyCode, MouseButton, is_key_pressed, is_mouse_button_pressed, mouse_position},
     math::{Rect, Vec2 as ScreenVec2, vec2},
@@ -35,7 +36,7 @@ const GAME_OVER_CONTACT_DURATION: f32 = 1.0;
 const TEXTURE_HEIGHT: f32 = 512.0;
 const TEXTURE_WIDTH: f32 = 512.0;
 const RESTITUTION: f32 = 0.2;
-const FRICTION: f32 = 1.0;
+const FRICTION: f32 = 0.8;
 
 enum GameState {
     Playing,
@@ -261,6 +262,11 @@ async fn main() {
         BLACK,
     );
     next_frame().await;
+
+    // Load sound effects
+    let sound_drop = load_sound("assets/pop.mp3")
+        .await
+        .expect("Failed to load sound effect");
 
     // Load ball properties
     let sprite_sheet = load_texture("assets/sprite_sheet.webp")
@@ -536,6 +542,9 @@ async fn main() {
 
                 // Update score
                 score += 1 << next_level;
+
+                // Play pop sound
+                play_sound_once(&sound_drop);
             }
         }
 

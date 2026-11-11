@@ -5,5 +5,5 @@ edition = "2024"
 
 [dependencies]
 image = { version = "0.24.9", features = ["webp"] }
-macroquad = "0.4.16"
+macroquad = { version = "0.4.16", features = ["audio"] }
 rapier2d = "0.36.1"

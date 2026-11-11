@@ -5,6 +5,7 @@ use std::process::Command;
 fn main() {
     let status = Command::new("cargo")
         .args(["build", "--target", "wasm32-unknown-unknown", "--release"])
+        .env("RUSTFLAGS", "-C link-arg=--allow-undefined")
         .status()
         .expect("Error: Failed to execute cargo build command");
 
